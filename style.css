@@ -467,8 +467,8 @@ body {
   background: rgba(255,255,255,0.08);
   color: var(--text-soft);
   border: 1px solid rgba(255,182,193,0.3);
-  position: absolute;
-  transition: all 0.1s ease;
+  position: relative; /* JS changes this to fixed when it runs away */
+  transition: left 0.15s ease, top 0.15s ease, opacity 0.2s ease;
 }
 
 .no-hint {

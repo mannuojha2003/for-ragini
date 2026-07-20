@@ -120,6 +120,8 @@ function goToPage(n) {
 // Envelope click → Page 2
 const envelopeWrapper = document.getElementById('envelopeWrapper');
 envelopeWrapper.addEventListener('click', () => {
+  // Stop the breathe animation before applying JS transform
+  envelopeWrapper.style.animation = 'none';
   envelopeWrapper.style.transform = 'scale(1.15) rotate(5deg)';
   envelopeWrapper.style.transition = 'transform 0.3s ease';
   setTimeout(() => goToPage(2), 350);
@@ -155,13 +157,16 @@ function runAway(btn) {
   const maxY = window.innerHeight - btnRect.height - 20;
 
   let randomX, randomY;
-  // Keep away from the YES button area
+  // Keep away from the YES button area (max 20 attempts to avoid infinite loop)
+  let attempts = 0;
   do {
     randomX = Math.random() * maxX;
     randomY = Math.random() * maxY;
+    attempts++;
   } while (
-    Math.abs(randomX - groupRect.left)   < 140 &&
-    Math.abs(randomY - groupRect.top)    < 80
+    attempts < 20 &&
+    Math.abs(randomX - groupRect.left) < 140 &&
+    Math.abs(randomY - groupRect.top)  < 80
   );
 
   btn.style.position = 'fixed';
@@ -194,27 +199,41 @@ function sayYes() {
 
 
 // ─── CONFETTI ──────────────────────────────────────────────────────
+// Inject confetti keyframes into <head> so inline-styled elements can use them
+(function injectConfettiKeyframes() {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes confettiFall {
+      0%   { transform: translateY(-20px) rotate(0deg) scale(1);   opacity: 1; }
+      80%  { opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
 function launchConfetti() {
-  const colors  = ['#e91e63','#ff6b9d','#ffd700','#9b59b6','#ffb6c1','#fff'];
+  const colors  = ['#e91e63','#ff6b9d','#ffd700','#9b59b6','#ffb6c1','#ffffff'];
   const shapes  = ['●','♥','✦','★','♦'];
-  const confetti = document.getElementById('heartsContainer'); // reuse
+  const confettiContainer = document.getElementById('heartsContainer');
 
   for (let i = 0; i < 80; i++) {
     setTimeout(() => {
       const piece = document.createElement('div');
-      piece.style.cssText = `
-        position: fixed;
-        left: ${Math.random()*100}vw;
-        top: -20px;
-        color: ${colors[Math.floor(Math.random()*colors.length)]};
-        font-size: ${Math.random()*1.2 + 0.6}rem;
-        animation: fallDown ${Math.random()*4+3}s linear forwards;
-        pointer-events: none;
-        z-index: 999;
-      `;
-      piece.textContent = shapes[Math.floor(Math.random()*shapes.length)];
-      confetti.appendChild(piece);
-      setTimeout(() => piece.remove(), 7000);
+      const duration = (Math.random() * 4 + 3).toFixed(2);
+      piece.style.cssText = [
+        'position: fixed',
+        `left: ${(Math.random() * 100).toFixed(2)}vw`,
+        'top: -20px',
+        `color: ${colors[Math.floor(Math.random() * colors.length)]}`,
+        `font-size: ${(Math.random() * 1.2 + 0.6).toFixed(2)}rem`,
+        `animation: confettiFall ${duration}s linear forwards`,
+        'pointer-events: none',
+        'z-index: 999',
+      ].join(';');
+      piece.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+      confettiContainer.appendChild(piece);
+      setTimeout(() => piece.remove(), (parseFloat(duration) + 1) * 1000);
     }, i * 60);
   }
 }
