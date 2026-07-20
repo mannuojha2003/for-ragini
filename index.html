@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Special Evening for Ragini 🌹</title>
+  <meta name="description" content="A heartfelt invitation for a special evening — just for Ragini." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Particle Canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Floating Hearts -->
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <!-- Petals -->
+  <div class="petals-container" id="petalsContainer"></div>
+
+  <!-- Page 1: Landing -->
+  <section class="page active" id="page1">
+    <div class="page-content">
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-body">
+            <div class="envelope-letter">
+              <span class="envelope-icon">💌</span>
+            </div>
+          </div>
+        </div>
+        <p class="envelope-hint">Click to open</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 2: The Letter -->
+  <section class="page" id="page2">
+    <div class="page-content">
+      <div class="letter-card" id="letterCard">
+        <div class="letter-header">
+          <div class="rose-emoji">🌹</div>
+          <p class="dear-text">Dear</p>
+          <h1 class="name-title">Ragini</h1>
+          <div class="divider"></div>
+        </div>
+        <div class="letter-body">
+          <p class="letter-para">
+            There are moments in life that words can barely capture —<br/>
+            moments when your heart just <em>knows</em>.
+          </p>
+          <p class="letter-para">
+            You have this way of making every ordinary moment feel like <strong>magic</strong>.<br/>
+            Your smile, your laughter, your presence —<br/>
+            they make the whole world brighter.
+          </p>
+          <p class="letter-para italic-quote">
+            "And in that moment, I knew —<br/>
+            I never wanted to be anywhere else."
+          </p>
+          <p class="letter-para">
+            So I have a question for you... 🌙
+          </p>
+        </div>
+        <button class="btn-next glow-btn" id="btnNext1" onclick="goToPage(3)">
+          <span>Read On</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 3: The Ask -->
+  <section class="page" id="page3">
+    <div class="page-content">
+      <div class="ask-card" id="askCard">
+        <div class="stars-row">⭐ ✨ 🌟 ✨ ⭐</div>
+        <h2 class="ask-question">
+          Will you spend<br/>
+          <span class="highlight-text">this evening</span><br/>
+          with me?
+        </h2>
+        <p class="ask-subtext">Just you, me, and a little bit of magic ✨</p>
+
+        <div class="btn-group" id="btnGroup">
+          <button class="btn-yes" id="btnYes" onclick="sayYes()">
+            <span class="btn-icon">💖</span> Yes!
+          </button>
+          <button class="btn-no" id="btnNo" onmouseenter="runAway(this)" ontouchstart="runAway(this)">
+            <span class="btn-icon">😅</span> No
+          </button>
+        </div>
+
+        <p class="no-hint" id="noHint">Psst... the "No" button is a little shy 🙈</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 4: YES! Celebration -->
+  <section class="page" id="page4">
+    <div class="page-content">
+      <div class="celebration-card" id="celebCard">
+        <div class="celebrate-emoji-row">🎉 💖 🌹 💫 🎊</div>
+        <h2 class="celebrate-title">She said YES! 🥳</h2>
+        <p class="celebrate-subtitle">I'm the luckiest person alive right now.</p>
+        <div class="details-card">
+          <div class="detail-row">
+            <span class="detail-icon">🌙</span>
+            <div class="detail-text">
+              <span class="detail-label">When</span>
+              <span class="detail-value">This Evening</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <span class="detail-icon">🌹</span>
+            <div class="detail-text">
+              <span class="detail-label">Who</span>
+              <span class="detail-value">You &amp; Me</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <span class="detail-icon">✨</span>
+            <div class="detail-text">
+              <span class="detail-label">Dress Code</span>
+              <span class="detail-value">Absolutely Beautiful (as always)</span>
+            </div>
+          </div>
+        </div>
+        <p class="final-note">
+          Can't wait to see you, Ragini 💕<br/>
+          <span class="signature">— Your Secret Admirer 🌹</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
